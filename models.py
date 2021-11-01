@@ -1,4 +1,5 @@
 from database import db
+from sqlalchemy.dialects.sqlite import BLOB
 
 class User(db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
@@ -22,19 +23,19 @@ class User(db.Model):
 class Resume(db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
     user = db.Column("username", db.String(100))
-    html = db.Column('html', db.String(300))
+    html = db.Column('html', BLOB)
     category = db.Column("category", db.String(50))
     text = db.Column('text', db.String(300))
-    headers = db.Column("text", db.String(300))
+    headers = db.Column("headers", db.String(300))
 
 
 
     def __init__(self, user_in, html_in, cat, text_in, headers_in):
-        user = user_in
-        html = html_in
-        category = cat
-        text = text_in
-        headers = headers_in
+        self.user = user_in
+        self.html = html_in
+        self.category = cat
+        self.text = text_in
+        self.headers = headers_in
 
     def __repr__(self):
-        return f"Resume('{self.id}', '{self.html}', '{self.category}', '{self.text}', '{self.headers}')"
+        return f"Resume('{self.id}', '{self.category}', '{self.text}', '{self.headers}')"

@@ -112,12 +112,13 @@ def delete_account(fname):
 
 @app.route('/save_resume', methods=['POST'])
 def save_resume():
-    data = request.get_data()
-    data = json.loads(data)
-    print(type(data))
+    data = json.loads(request.get_data())
+    html = ''
     for i in data:
-        print(data[i]['html'])
-    return data
+        html += data[i]['html']
+    bhtml = ''.join(format(x, 'b') for x in bytearray(html, 'utf-8'))
+    #print(bhtml)
+    return bhtml
 
 app.run(host=os.getenv('IP', '127.0.0.1'), port=int(os.getenv('PORT', 5000)), debug=True)
 
